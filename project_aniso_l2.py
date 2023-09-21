@@ -171,7 +171,7 @@ def solve_poisson_dubuis_problem(
         * tanh(problem_tanh_amplitude_c * (x - 0.5))
         * (1.0 - (tanh(problem_tanh_amplitude_c * (x - 0.5))) ** 2)
     )
-    a = (inner(grad(u), grad(v)) + inner(u, v)) * dx
+    a = (inner(grad(u), grad(v))) * dx
     L = inner(f, v) * dx
     u_solution = fd.Function(V)
     u_solution_exact = fd.Function(V)
@@ -202,7 +202,7 @@ def run_given_problem_case(
     mesh_size_x: float = 0.01,
     mesh_size_y: float = 0.1,
     input_mesh_file: str = msh_filename,
-    save_paraview_solution: bool = False,
+    save_paraview_solution: bool = True,
 ):
     """Given the specific of the input, compute the "Dubuis" example problem, i.e mesh the anisotropic mesh with mmg, based on an input gmsh .msh mesh format, then use the anisotropic mesh as input to solve the Laplace/poisson problem and compute the error. An option allows to save the solution in paraview, for debugging.
 
