@@ -176,8 +176,9 @@ def solve_poisson_dubuis_problem(
     u_solution = fd.Function(V)
     u_solution_exact = fd.Function(V)
     u_solution_expression = tanh(problem_tanh_amplitude_c * (x - 0.5))
+    bc1 = fd.DirichletBC(V, u_solution_expression, boundary_tag)
     u_solution_exact.interpolate(u_solution_expression)
-    fd.solve(a == L, u_solution)
+    fd.solve(a == L, u_solution, bcs=[bc1])
     # By default compute the error norm between the 2 solutions, either the expression can be compared in itself, either the solution already projected on the function space
     # error = fd.errornorm(u_solution_expression, u_solution, degree_rise=3)
     error = fd.errornorm(u_solution_exact, u_solution)
