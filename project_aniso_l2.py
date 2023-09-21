@@ -117,17 +117,11 @@ def adapt_channels_mmg_2d(
     output_mesh_file: str = aniso_msh_filename,
 ):
     """This script suppose that a bash variable MMG_PATH is set to the bin directory of your mmg3d executable
-    Example : echo $MMG_PATH
-              /Users/emilesoutter/ExtraSoftwares/mmg/bin/
-             where the mmg exists there  /Users/emilesoutter/ExtraSoftwares/mmg/bin/mmg3d_O3
 
     Args:
-        InputFile (_type_): _description_
-        Outputfile (str, optional): _description_. Defaults to "Adapted_aniso.msh".
-        folder (_type_, optional): _description_. Defaults to None.
-        CL (int, optional): Characteristic length. Defaults to 1.
-        N_adapt (int, optional): number of remeshing iterations. Defaults to 1.
-        appctx (_type_, optional): Additional change to the metrics. example : attractors as lines or planes Defaults to None.
+        constant_metric (np.array): the constant metric
+        input_mesh_file (str, optional): the input mesh file. Defaults to msh_filename.
+        output_mesh_file (str, optional): the output mesh file. Defaults to aniso_msh_filename.
     """
     shutil.copy(input_mesh_file, output_mesh_file)
     write_metric(metric=constant_metric, output_mesh_file=output_mesh_file)
@@ -202,7 +196,7 @@ def run_given_problem_case(
     mesh_size_x: float = 0.01,
     mesh_size_y: float = 0.1,
     input_mesh_file: str = msh_filename,
-    save_paraview_solution: bool = True,
+    save_paraview_solution: bool = False,
 ):
     """Given the specific of the input, compute the "Dubuis" example problem, i.e mesh the anisotropic mesh with mmg, based on an input gmsh .msh mesh format, then use the anisotropic mesh as input to solve the Laplace/poisson problem and compute the error. An option allows to save the solution in paraview, for debugging.
 
